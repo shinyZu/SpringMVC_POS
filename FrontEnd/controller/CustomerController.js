@@ -27,7 +27,7 @@ function addCustomer() {
     txtCustomerId.removeAttr("disabled");
 
     $.ajax({
-        url: "http://localhost:8080/pos/customer",
+        url: "http://localhost:8080/springBackend/api/pos/customer",
         method: "POST",
         data: $("#customerForm").serialize(),
         success: function (resp) {

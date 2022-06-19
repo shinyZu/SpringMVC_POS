@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.jndi.JndiTemplate;
 import org.springframework.orm.jpa.EntityManagerFactoryInfo;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -38,9 +39,19 @@ public class JPAConfig {
         return bean;
     }
 
-    @Bean
+    /*@Bean
     public DataSource dataSource() throws NamingException {
         return (DataSource) new JndiTemplate().lookup("java:comp/env/jdbc/pool");
+    }
+*/
+    @Bean
+    public DataSource dataSource() {
+        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+        dataSource.setUrl(env.getRequiredProperty("my.app.url"));
+        dataSource.setUsername(env.getRequiredProperty("my.app.username"));
+        dataSource.setPassword(env.getRequiredProperty("my.app.password"));
+        dataSource.setDriverClassName(env.getRequiredProperty("my.app.driverclassname"));
+        return dataSource;
     }
 
     @Bean

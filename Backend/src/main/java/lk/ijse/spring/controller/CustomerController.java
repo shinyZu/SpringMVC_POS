@@ -1,8 +1,10 @@
 package lk.ijse.spring.controller;
 
+import lk.ijse.spring.dto.CustomerDTO;
 import lk.ijse.spring.service.CustomerService;
 import lk.ijse.spring.util.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,5 +24,16 @@ public class CustomerController {
     @GetMapping(path = "{id}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseUtil searchCustomer(@PathVariable String id){
         return new ResponseUtil(200,"Search Done",customerService.searchCustomer(id));
+    }
+
+    @GetMapping(path = "lastID",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil getLastCustomerID(){
+        return new ResponseUtil(200,"Search Done",customerService.getLastCustomerID());
+    }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping(consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil saveCustomer(@ModelAttribute CustomerDTO dto){
+        return new ResponseUtil(201,"Customer Saved Successfully..!",customerService.saveCustomer(dto));
     }
 }

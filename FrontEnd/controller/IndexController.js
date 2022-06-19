@@ -18,6 +18,8 @@ let pwd;
 
 let reply;
 
+let baseUrl = "http://localhost:8080/springBackend/api/pos/customer";
+
 getCustomerCount();
 getItemCount();
 getOrderCount();
@@ -74,7 +76,8 @@ function getOrderCount() {
 
 function generateNextCustomerID() {
     $.ajax({
-        url: "http://localhost:8080/pos/customer?option=LAST_ID",
+        // url: "http://localhost:8080/pos/customer?option=LAST_ID",
+        url: "http://localhost:8080/springBackend/api/pos/customer/lastID",
         method: "GET",
         async: false,
         success: function (resp) {
