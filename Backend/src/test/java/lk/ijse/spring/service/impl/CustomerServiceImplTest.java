@@ -29,6 +29,14 @@ class CustomerServiceImplTest {
     CustomerRepo customerRepo;*/
 
     @Test
+    void getAllCustomers() {
+        List<CustomerDTO> allCustomers = customerService.getAllCustomers();
+        for (CustomerDTO cus : allCustomers) {
+            System.out.println(cus.toString());
+        }
+    }
+
+    @Test
     void getLastCustomerID() {
         /*List<Customer> list = customerRepo.findAll(Sort.by(Sort.Direction.DESC, "customerId"));
         System.out.println(list);
@@ -50,4 +58,12 @@ class CustomerServiceImplTest {
         CustomerDTO dto = customerService.updateCustomer(new CustomerDTO("C00-009", "Supuni", "Badulla", 716455459));
         System.out.println(dto);
     }
+
+    @Test
+    void deleteCustomer() {
+        customerService.deleteCustomer("C00-010");
+        getAllCustomers();
+    }
+
+
 }

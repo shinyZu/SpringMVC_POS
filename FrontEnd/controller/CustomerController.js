@@ -112,10 +112,11 @@ function deleteCustomer(row) {
             email = localStorage.getItem("email");
             pwd = localStorage.getItem("pwd");
             $.ajax({
-                url: "http://localhost:8080/pos/customer?customerID=" + customerId + "&email=" + email + "&pwd=" + pwd,
+                // url: "http://localhost:8080/pos/customer?customerID=" + customerId + "&email=" + email + "&pwd=" + pwd,
+                url: "http://localhost:8080/springBackend/api/pos/customer?id=" + customerId,
                 method: "DELETE",
                 success: function (resp) {
-                    if (resp.status === 200) {
+                    if (resp.code === 200) {
                         swal({
                             title: 'Deleted!',
                             text: "Customer  " + customerId + "  Deleted.",
@@ -136,7 +137,7 @@ function deleteCustomer(row) {
 
                         clearCustomerFields();
 
-                    } else if (resp.status === 400) {
+                    } else if (resp.code === 400) {
                         toastr.error(resp.message);
                         generateNextCustomerID();
                     } else {
