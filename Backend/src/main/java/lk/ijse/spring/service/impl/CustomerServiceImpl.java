@@ -45,6 +45,13 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    public String getCustomerCount() {
+        long count = repo.count();
+        return String.valueOf(count);
+
+    }
+
+    @Override
     public String isDuplicateContact(String id, int contact) {
         System.out.println("contact : "+contact);
         List<Customer> all = repo.findAll();

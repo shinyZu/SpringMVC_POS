@@ -66,4 +66,9 @@ class CustomerServiceImplTest {
     }
 
 
+    @Test
+    void getCustomerCount() {
+        String customerCount = customerService.getCustomerCount();
+        System.out.println(customerCount);
+    }
 }

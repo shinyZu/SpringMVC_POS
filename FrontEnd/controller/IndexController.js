@@ -34,10 +34,12 @@ function getCustomerCount() {
     console.log(pwd);*/
 
     $.ajax({
-        url: "http://localhost:8080/pos/customer?option=GET_COUNT",
+        // url: "http://localhost:8080/pos/customer?option=GET_COUNT",
+        url: "http://localhost:8080/springBackend/api/pos/customer/getCount",
         method: "GET",
         async: false,
         success: function (resp) {
+            response = resp;
             $("#totalCustomers").text("0" + resp.data);
         },
         error: function (ob, textStatus, error) {

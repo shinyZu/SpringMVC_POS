@@ -31,6 +31,11 @@ public class CustomerController {
         return new ResponseUtil(200, "Last ID", customerService.getLastCustomerID());
     }
 
+    @GetMapping(path = "getCount", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil getCustomerCount() {
+        return new ResponseUtil(200, "Customer Count", customerService.getCustomerCount());
+    }
+
     @GetMapping(path = "{id}/{contact}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseUtil checkIfDuplicateContact(@PathVariable String id, @PathVariable int contact) {
         return new ResponseUtil(200, customerService.isDuplicateContact(id,contact), null);

@@ -9,6 +9,7 @@ public interface CustomerService {
     List<CustomerDTO> getAllCustomers();
     CustomerDTO searchCustomer(String id);
     String getLastCustomerID();
+    String getCustomerCount();
     String isDuplicateContact(String id, int contact);
     CustomerDTO saveCustomer(CustomerDTO dto);
     CustomerDTO updateCustomer(CustomerDTO dto);
