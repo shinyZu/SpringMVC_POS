@@ -1,15 +1,14 @@
-# Enterprise Level Application with Java
+# Enterprise Level Application with Spring Web MVC
 
 ## POS system 
 - Back-end & Front-end on seperate origins
 - handled cross-origin requests (CORS issue)
 - configured JNDI Resource for a Tomcat Connection Pool
-- used Filters for user authentication
 - applied Layered Architecture 
 
 ## Used :
 
-- JavaEE
+- Spring
 - Apache Tomcat Web Container
 - AJAX
 - MySQL
