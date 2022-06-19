@@ -31,7 +31,8 @@ function addCustomer() {
         method: "POST",
         data: $("#customerForm").serialize(),
         success: function (resp) {
-            if (resp.status === 200) {
+            if (resp.code === 201) {
+                console.log("success.........");
                 toastr.success(resp.message);
                 loadAllCustomers();
                 getCustomerCount();
@@ -39,11 +40,13 @@ function addCustomer() {
                 // generateNextCustomerID();
 
             } else {
-                toastr.error(resp.data);
+                console.log("error................");
+                toastr.error(resp.message);
                 generateNextCustomerID();
             }
         },
         error: function (ob, textStatus, error) {
+            console.log("server side error................");
             console.log(ob);
         }
     });
@@ -453,7 +456,8 @@ function validate_CustomerContact(input, txtField) {
 
         customerId = txtCustomerId.val();
         $.ajax({
-            url: "http://localhost:8080/pos/customer?option=CHECK_FOR_DUPLICATE&customerId=" + customerId + "&input=" + input,
+            // url: "http://localhost:8080/pos/customer?option=CHECK_FOR_DUPLICATE&customerId=" + customerId + "&input=" + input,
+            url: "http://localhost:8080/springBackend/api/pos/customer/"+customerId+"/"+input,
             method: "GET",
             success: function (resp) {
                 response = resp;

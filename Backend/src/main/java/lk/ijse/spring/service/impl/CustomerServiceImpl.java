@@ -25,15 +25,16 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public List<CustomerDTO> getAllCustomers() {
-        return mapper.map(repo.findAll(), new TypeToken<List<CustomerDTO>>() {}.getType());
+        return mapper.map(repo.findAll(), new TypeToken<List<CustomerDTO>>() {
+        }.getType());
     }
 
     @Override
     public CustomerDTO searchCustomer(String id) {
-        if (repo.existsById(id)){
-            return mapper.map(repo.findById(id),CustomerDTO.class);
+        if (repo.existsById(id)) {
+            return mapper.map(repo.findById(id), CustomerDTO.class);
         } else {
-            throw new RuntimeException("No Customer with ID "+id);
+            throw new RuntimeException("No Customer with ID " + id);
         }
     }
 
@@ -44,9 +45,25 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    public String isDuplicateContact(String id, int contact) {
+        System.out.println("contact : "+contact);
+        List<Customer> all = repo.findAll();
+        for (Customer customer : all) {
+            if (customer.getCustomerContact() == contact) {
+                if (customer.getCustomerId().equals(id)) {
+                    return "Match";
+                } else {
+                    return "Duplicate";
+                }
+            }
+        }
+        return "Unique";
+    }
+
+    @Override
     public CustomerDTO saveCustomer(CustomerDTO dto) {
-        if (!repo.existsById(dto.getCustomerId())){
-            return mapper.map(repo.save(mapper.map(dto, Customer.class)),CustomerDTO.class);
+        if (!repo.existsById(dto.getCustomerId())) {
+            return mapper.map(repo.save(mapper.map(dto, Customer.class)), CustomerDTO.class);
         } else {
             throw new RuntimeException("Customer Already Exists...");
         }

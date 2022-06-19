@@ -37,4 +37,10 @@ class CustomerServiceImplTest {
         System.out.println(lastCustomerID);
 
     }
+
+    @Test
+    void isDuplicateContact() {
+        String status = customerService.isDuplicateContact("C00-007", 716455457);
+        System.out.println("status : "+status);
+    }
 }
