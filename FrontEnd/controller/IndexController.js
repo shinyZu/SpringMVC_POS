@@ -201,7 +201,7 @@ function getUserDetails(email,pwd){
     });
 }
 
-(function () {
+//(function () {
     // localStorage.setItem("reload","0");
     /*if(localStorage.getItem("reload") === "1"){
         // localStorage.removeItem("reload");
@@ -411,7 +411,7 @@ function getUserDetails(email,pwd){
     // localStorage.removeItem("email");
     // localStorage.removeItem("pwd");
 
-    (async () => {
+    /*(async () => {
         const { value: formValues } = await Swal.fire({
             title: 'Login / Sign Up',
             html:
@@ -462,11 +462,11 @@ function getUserDetails(email,pwd){
             getUserDetails(email,pwd);
 
             if (response.data.pwd === pwd && response.data.email === email) {
-                /*localStorage.removeItem("email");
+                /!*localStorage.removeItem("email");
                 localStorage.removeItem("pwd");
 
                 localStorage.setItem("email",email);
-                localStorage.setItem("pwd",pwd);*/
+                localStorage.setItem("pwd",pwd);*!/
 
                 Swal.fire({
                     icon: 'success',
@@ -477,8 +477,8 @@ function getUserDetails(email,pwd){
 
                 })
 
-                /*email = localStorage.getItem("email");
-                pwd = localStorage.getItem("pwd");*/
+                /!*email = localStorage.getItem("email");
+                pwd = localStorage.getItem("pwd");*!/
 
             } else {
                 Swal.fire({
@@ -602,8 +602,8 @@ function getUserDetails(email,pwd){
                 })
             }
         }
-    })()
-})();
+    })()*/
+//})();
 
 // $('.swal2-footer a').click(function (event) {
 //     event.preventDefault();
