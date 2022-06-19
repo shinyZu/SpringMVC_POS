@@ -71,7 +71,11 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public CustomerDTO updateCustomer(CustomerDTO dto) {
-        return null;
+        if (repo.existsById(dto.getCustomerId())) {
+            return mapper.map(repo.save(mapper.map(dto, Customer.class)), CustomerDTO.class);
+        } else {
+            throw new RuntimeException("No Such Customer.Please check the ID...");
+        }
     }
 
     @Override

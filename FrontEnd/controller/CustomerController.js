@@ -48,25 +48,28 @@ function addCustomer() {
         error: function (ob, textStatus, error) {
             console.log("server side error................");
             console.log(ob);
+            // toastr.error(resp.message);
         }
     });
 }
 
 function updateCustomer() {
+    let jQuery = $("#customerForm").serialize();
+    JSON.stringify(jQuery);
     let custObj = {
-        id: txtCustomerId.val(),
-        name: txtCustomerName.val(),
-        address: txtAddress.val(),
-        contact: txtContact.val()
+        customerId: txtCustomerId.val(),
+        customerName: txtCustomerName.val(),
+        customerAddress: txtAddress.val(),
+        customerContact: txtContact.val()
     }
 
     $.ajax({
-        url: "http://localhost:8080/pos/customer",
+        url: "http://localhost:8080/springBackend/api/pos/customer",
         method: "PUT",
         contentType: "application/json",
         data: JSON.stringify(custObj),
         success: function (resp) {
-            if (resp.status === 200) {
+            if (resp.code === 200) {
                 toastr.success(resp.message);
 
                 loadAllCustomers();
@@ -77,7 +80,7 @@ function updateCustomer() {
                 load_TblCustomerOrder();
                 select_OrderDetailRow();
 
-            } else if (resp.status === 400) {
+            } else if (resp.code === 400) {
                 toastr.error(resp.message);
                 generateNextCustomerID();
             } else {
@@ -87,6 +90,7 @@ function updateCustomer() {
         },
         error: function (ob, textStatus, error) {
             console.log(ob);
+            // toastr.error(resp.message);
         }
     });
 }

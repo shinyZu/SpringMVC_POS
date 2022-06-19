@@ -41,4 +41,10 @@ public class CustomerController {
     public ResponseUtil saveCustomer(@ModelAttribute CustomerDTO dto) {
         return new ResponseUtil(201, "Customer Saved Successfully..!", customerService.saveCustomer(dto));
     }
+
+    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil updateCustomer(@RequestBody CustomerDTO dto) {
+        System.out.println("-----------------------"+dto);
+        return new ResponseUtil(200, "Customer Updated Successfully..!", customerService.updateCustomer(dto));
+    }
 }

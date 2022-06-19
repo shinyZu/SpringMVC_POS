@@ -1,6 +1,7 @@
 package lk.ijse.spring.service.impl;
 
 import lk.ijse.spring.config.WebAppConfig;
+import lk.ijse.spring.dto.CustomerDTO;
 import lk.ijse.spring.entity.Customer;
 import lk.ijse.spring.repo.CustomerRepo;
 import lk.ijse.spring.service.CustomerService;
@@ -42,5 +43,11 @@ class CustomerServiceImplTest {
     void isDuplicateContact() {
         String status = customerService.isDuplicateContact("C00-007", 716455457);
         System.out.println("status : "+status);
+    }
+
+    @Test
+    void updateCustomer() {
+        CustomerDTO dto = customerService.updateCustomer(new CustomerDTO("C00-009", "Supuni", "Badulla", 716455459));
+        System.out.println(dto);
     }
 }
