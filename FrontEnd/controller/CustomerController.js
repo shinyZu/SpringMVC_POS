@@ -27,7 +27,7 @@ function addCustomer() {
     txtCustomerId.removeAttr("disabled");
 
     $.ajax({
-        url: "http://localhost:8080/springBackend/api/pos/customer",
+        url: customerAPIBaseUrl,
         method: "POST",
         data: $("#customerForm").serialize(),
         success: function (resp) {
@@ -64,7 +64,7 @@ function updateCustomer() {
     }
 
     $.ajax({
-        url: "http://localhost:8080/springBackend/api/pos/customer",
+        url: customerAPIBaseUrl,
         method: "PUT",
         contentType: "application/json",
         data: JSON.stringify(custObj),
@@ -113,7 +113,7 @@ function deleteCustomer(row) {
             pwd = localStorage.getItem("pwd");
             $.ajax({
                 // url: "http://localhost:8080/pos/customer?customerID=" + customerId + "&email=" + email + "&pwd=" + pwd,
-                url: "http://localhost:8080/springBackend/api/pos/customer?id=" + customerId,
+                url: customerAPIBaseUrl+"?id=" + customerId,
                 method: "DELETE",
                 success: function (resp) {
                     if (resp.code === 200) {
@@ -158,7 +158,7 @@ function loadAllCustomers() {
 
     $.ajax({
         // url: "http://localhost:8080/pos/customer?option=GETALL",
-        url: "http://localhost:8080/springBackend/api/pos/customer",
+        url: customerAPIBaseUrl,
         method: "GET",
         success: function (resp) {
             console.log(resp);
@@ -188,7 +188,7 @@ function loadAllCustomers() {
 function searchCustomer(searchValue) {
     $.ajax({
         // url: "http://localhost:8080/pos/customer?option=SEARCH&customerID=" + searchValue + "&customerName=",
-        url: "http://localhost:8080/springBackend/api/pos/customer/"+searchValue,
+        url: customerAPIBaseUrl+"/"+searchValue,
         method: "GET",
         success: function (resp) {
             response = resp;
@@ -462,7 +462,7 @@ function validate_CustomerContact(input, txtField) {
         customerId = txtCustomerId.val();
         $.ajax({
             // url: "http://localhost:8080/pos/customer?option=CHECK_FOR_DUPLICATE&customerId=" + customerId + "&input=" + input,
-            url: "http://localhost:8080/springBackend/api/pos/customer/"+customerId+"/"+input,
+            url: customerAPIBaseUrl+"/"+customerId+"/"+input,
             method: "GET",
             success: function (resp) {
                 response = resp;

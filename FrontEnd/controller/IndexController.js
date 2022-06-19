@@ -18,7 +18,9 @@ let pwd;
 
 let reply;
 
-let baseUrl = "http://localhost:8080/springBackend/api/pos/customer";
+let customerAPIBaseUrl = "http://localhost:8080/springBackend/api/pos/customer";
+let itemAPIBaseUrl = "http://localhost:8080/springBackend/api/pos/item";
+let ordersAPIBaseUrl = "http://localhost:8080/springBackend/api/pos/orders";
 
 getCustomerCount();
 getItemCount();
@@ -35,7 +37,7 @@ function getCustomerCount() {
 
     $.ajax({
         // url: "http://localhost:8080/pos/customer?option=GET_COUNT",
-        url: "http://localhost:8080/springBackend/api/pos/customer/getCount",
+        url: customerAPIBaseUrl+"/getCount",
         method: "GET",
         async: false,
         success: function (resp) {
