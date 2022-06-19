@@ -179,14 +179,18 @@ function loadAllCustomers() {
 
 function searchCustomer(searchValue) {
     $.ajax({
-        url: "http://localhost:8080/pos/customer?option=SEARCH&customerID=" + searchValue + "&customerName=",
+        // url: "http://localhost:8080/pos/customer?option=SEARCH&customerID=" + searchValue + "&customerName=",
+        url: "http://localhost:8080/springBackend/api/pos/customer/"+searchValue,
         method: "GET",
         success: function (resp) {
             response = resp;
-            let obj = resp.data;
-            obj = new Customer(obj.id, obj.name, obj.address, obj.contact);
 
-            if (JSON.stringify(resp.data) !== "{}") { // if resp.data = '{"id":"C00-005","name":"Ramal","address":"Jaffna","contact":"716455455"}'
+            // if (JSON.stringify(resp.data) !== "{}") { // if resp.data = '{"id":"C00-005","name":"Ramal","address":"Jaffna","contact":"716455455"}'
+            // if (resp.data != null) { // if resp.data = '{"id":"C00-005","name":"Ramal","address":"Jaffna","contact":"716455455"}'
+            if (resp.code === 200) { // if resp.data = '{"id":"C00-005","name":"Ramal","address":"Jaffna","contact":"716455455"}'
+                let obj = resp.data;
+                obj = new Customer(obj.customerId, obj.customerName, obj.customerAddress, obj.customerContact);
+
                 txtCustomerId.val(obj.getCustomerID());
                 txtCustomerName.val(obj.getCustomerName());
                 txtAddress.val(obj.getCustomerAddress());
@@ -194,8 +198,9 @@ function searchCustomer(searchValue) {
 
                 validate_CustomerForm();
                 return true;
-
-            } else { // if resp.data = '{}'
+            }
+            /*else if (resp.data == null){
+                console.log("Errorrr..........");
                 swal({
                     title: "Customer " + searchValue + " doesn't exist...",
                     text: "\n",
@@ -206,10 +211,19 @@ function searchCustomer(searchValue) {
                 });
                 reset_CustomerForm();
                 return false;
-            }
+            }*/
         },
         error: function (ob, textStatus, error) {
             console.log(ob);
+            swal({
+                title: "Customer " + searchValue + " doesn't exist...",
+                text: "\n",
+                icon: 'warning',
+                buttons: false,
+                timer: 2000,
+                closeModal: true,
+            });
+            reset_CustomerForm();
         }
     });
 }
