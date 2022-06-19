@@ -52,7 +52,8 @@ function getCustomerCount() {
 
 function getItemCount() {
     $.ajax({
-        url: "http://localhost:8080/pos/item?option=GET_COUNT",
+        // url: "http://localhost:8080/pos/item?option=GET_COUNT",
+        url: itemAPIBaseUrl+"/getCount",
         method: "GET",
         async: false,
         success: function (resp) {
@@ -81,7 +82,8 @@ function getOrderCount() {
 function generateNextCustomerID() {
     $.ajax({
         // url: "http://localhost:8080/pos/customer?option=LAST_ID",
-        url: "http://localhost:8080/springBackend/api/pos/customer/lastID",
+        // url: "http://localhost:8080/springBackend/api/pos/customer/lastID",
+        url: customerAPIBaseUrl+"/lastID",
         method: "GET",
         async: false,
         success: function (resp) {
@@ -117,16 +119,17 @@ function generateNextCustomerID() {
 
 function generateNextItemCode() {
     $.ajax({
-        url: "http://localhost:8080/pos/item?option=LAST_CODE",
+        // url: "http://localhost:8080/pos/item?option=LAST_CODE",
+        url: itemAPIBaseUrl+"/lastCode",
         method: "GET",
         async: false,
         success: function (resp) {
-            let lastItemCode = resp.data;
-
-            if (lastItemCode === "null") {
+            response = resp;
+            if (resp.data == null) {
                 txtItemCode.val("I00-001");
                 return;
             }
+            let lastItemCode = resp.data;
             let nextItemCode = ++lastItemCode.split("-")[1];
 
             if (nextItemCode <= 9) {

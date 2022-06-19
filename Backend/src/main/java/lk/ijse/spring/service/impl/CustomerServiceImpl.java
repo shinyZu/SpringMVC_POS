@@ -40,8 +40,8 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public String getLastCustomerID() {
-        List<Customer> list = repo.findAll(Sort.by(Sort.Direction.DESC, "customerId"));
-        return list.get(0).getCustomerId();
+        List<Customer> customers = repo.findAll(Sort.by(Sort.Direction.DESC, "customerId"));
+        return customers.get(0).getCustomerId();
     }
 
     @Override
@@ -81,7 +81,7 @@ public class CustomerServiceImpl implements CustomerService {
         if (repo.existsById(dto.getCustomerId())) {
             return mapper.map(repo.save(mapper.map(dto, Customer.class)), CustomerDTO.class);
         } else {
-            throw new RuntimeException("No Such Customer.Please check the ID...");
+            throw new RuntimeException("No Such Customer..Please check the ID...");
         }
     }
 

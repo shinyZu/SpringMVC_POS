@@ -27,12 +27,13 @@ function addItem() {
     txtItemCode.removeAttr("disabled");
 
     $.ajax({
-        url: "http://localhost:8080/pos/item",
+        // url: "http://localhost:8080/pos/item",
+        url: itemAPIBaseUrl,
         method: "POST",
         data: $("#itemForm").serialize(),
         // async:false,
         success: function (resp) {
-            if (resp.status === 200) {
+            if (resp.code === 201) {
                 toastr.success(resp.message);
                 loadAllItems();
                 getItemCount();
@@ -52,13 +53,14 @@ function addItem() {
 
 function updateItem(itemObj) {
     $.ajax({
-        url: "http://localhost:8080/pos/item",
+        // url: "http://localhost:8080/pos/item",
+        url: itemAPIBaseUrl,
         method: "PUT",
         contentType: "application/json",
         data: JSON.stringify(itemObj),
         // async:false,
         success: function (resp) {
-            if (resp.status === 200) {
+            if (resp.code === 200) {
                 response = resp;
                 // return resp;
                 toastr.success(resp.message);
@@ -68,7 +70,7 @@ function updateItem(itemObj) {
                 // generateNextItemCode();
                 clearItemFields();
 
-            } else if (resp.status == 400) {
+            } else if (resp.code == 400) {
                 toastr.error(resp.message);
                 generateNextItemCode();
             } else {
@@ -108,11 +110,11 @@ function deleteItem(row) {
         if (result) {
 
             $.ajax({
-                url: "http://localhost:8080/pos/item?itemCode=" + itemCode,
+                url: itemAPIBaseUrl+"?itemCode=" + itemCode,
                 method: "DELETE",
                 async: false,
                 success: function (resp) {
-                    if (resp.status == 200) {
+                    if (resp.code === 200) {
                         // alert(resp.message);
                         swal({
                             title: 'Deleted!',
@@ -129,7 +131,7 @@ function deleteItem(row) {
                         // generateNextItemCode();
                         clearItemFields();
 
-                    } else if (resp.status == 400) {
+                    } else if (resp.code === 400) {
                         toastr.error(resp.message);
                         generateNextItemCode();
 
@@ -151,9 +153,11 @@ function loadAllItems() {
     $("#tblItem-body").empty();
 
     $.ajax({
-        url: "http://localhost:8080/pos/item?option=GETALL",
+        url: itemAPIBaseUrl,
         method: "GET",
         success: function (resp) {
+            console.log(resp);
+            reply = resp;
             for (let i of resp.data) {
                 let item = new Item(i.itemCode, i.description, i.unitPrice, i.qtyOnHand);
 
@@ -176,14 +180,16 @@ function loadAllItems() {
 
 function searchItem(searchValue) {
     $.ajax({
-        url: "http://localhost:8080/pos/item?option=SEARCH&itemCode=" + searchValue + "&description=",
+        // url: "http://localhost:8080/pos/item?option=SEARCH&itemCode=" + searchValue + "&description=",
+        url: itemAPIBaseUrl+ "/" + searchValue,
         method: "GET",
         success: function (resp) {
             response = resp;
-            let obj = resp.data;
-            obj = new Item(obj.itemCode, obj.description, obj.unitPrice, obj.qtyOnHand);
+            // if (JSON.stringify(resp.data) !== "{}") { // {"itemCode":"I00-002","description":"Red Rice","unitPrice":150,"qtyOnHand":20}
+            if (resp.code === 200) {
+                let obj = resp.data;
+                obj = new Item(obj.itemCode, obj.description, obj.unitPrice, obj.qtyOnHand);
 
-            if (JSON.stringify(resp.data) !== "{}") { // {"itemCode":"I00-002","description":"Red Rice","unitPrice":150,"qtyOnHand":20}
                 txtItemCode.val(obj.getItemCode());
                 txtDescription.val(obj.getDescription());
                 txtUnitPrice.val(obj.getUnitPrice());
@@ -192,7 +198,8 @@ function searchItem(searchValue) {
                 validate_ItemForm();
                 return true;
 
-            } else { // if resp.data = '{}'
+            }
+            /*else { // if resp.data = '{}'
                 swal({
                     title: "Item " + searchValue + " doesn't exist...",
                     text: "\n",
@@ -203,10 +210,19 @@ function searchItem(searchValue) {
                 })
                 reset_ItemForm();
                 return false;
-            }
+            }*/
         },
         error: function (ob, textStatus, error) {
             console.log(ob);
+            swal({
+                title: "Item " + searchValue + " doesn't exist...",
+                text: "\n",
+                icon: 'warning',
+                buttons: false,
+                timer: 2000,
+                closeModal: true,
+            })
+            reset_ItemForm();
         }
     });
 }
