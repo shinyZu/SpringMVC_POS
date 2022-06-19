@@ -13,5 +13,5 @@ public class CustomerDTO {
     private String customerId;
     private String customerName;
     private String customerAddress;
-    private String customerSalary;
+    private String customerContact;
 }

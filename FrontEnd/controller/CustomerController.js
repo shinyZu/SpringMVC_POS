@@ -149,11 +149,14 @@ function loadAllCustomers() {
     $("#tblCustomer-body").empty();
 
     $.ajax({
-        url: "http://localhost:8080/pos/customer?option=GETALL",
+        // url: "http://localhost:8080/pos/customer?option=GETALL",
+        url: "http://localhost:8080/springBackend/api/pos/customer",
         method: "GET",
         success: function (resp) {
+            console.log(resp);
+            reply = resp;
             for (let c of resp.data) {
-                let customer = new Customer(c.id, c.name, c.address, c.contact);
+                let customer = new Customer(c.customerId, c.customerName, c.customerAddress, c.customerContact);
 
                 newRow = `<tr>
                     <td>${customer.getCustomerID()}</td>

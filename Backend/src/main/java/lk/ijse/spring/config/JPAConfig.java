@@ -53,6 +53,7 @@ public class JPAConfig {
         return vendor;
     }
 
+    @Bean
     public PlatformTransactionManager transactionManager(EntityManagerFactory emf){
         return new JpaTransactionManager(emf);
     }

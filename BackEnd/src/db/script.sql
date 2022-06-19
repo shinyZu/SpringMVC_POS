@@ -26,6 +26,12 @@ CREATE TABLE IF NOT EXISTS Customer(
 );
 SHOW TABLES ;
 DESCRIBE Customer;
+
+INSERT INTO Customer VALUES ('C00-001','Galle',0716455451,'Kamal');
+INSERT INTO Customer VALUES ('C00-002','Panadura',0716455452,'Nimal');
+INSERT INTO Customer VALUES ('C00-003','Matara',0716455453,'Bimal');
+INSERT INTO Customer VALUES ('C00-004','Colombo',0716455454,'Amal');
+
 #-----------------------
 DROP TABLE IF EXISTS Item;
 CREATE TABLE IF NOT EXISTS Item(

@@ -16,6 +16,8 @@ let alertIcon;
 let email;
 let pwd;
 
+let reply;
+
 getCustomerCount();
 getItemCount();
 getOrderCount();
