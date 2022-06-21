@@ -57,6 +57,11 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
+    public List<ItemDTO> getCodesAndDescriptions() {
+        return mapper.map(repo.getItemCOdeAndDescription(), new TypeToken<List<ItemDTO>>(){}.getType());
+    }
+
+    @Override
     public ItemDTO saveItem(ItemDTO dto) {
         if (!repo.existsById(dto.getItemCode())) {
             return mapper.map(repo.save(mapper.map(dto, Item.class)), ItemDTO.class);

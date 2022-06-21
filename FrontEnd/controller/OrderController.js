@@ -143,15 +143,18 @@ function loadCmbCustomerId() {
     clearCmbCustomerId();
 
     $.ajax({
-        url: "http://localhost:8080/pos/customer?option=GET_ID_NAME",
+        // url: "http://localhost:8080/pos/customer?option=GET_ID_NAME",
+        url: "http://localhost:8080/springBackend/api/pos/customer/id_name",
         method: "GET",
         async: false,
         success: function (resp) {
+            response = resp;
             for (let c of resp.data) {
-                let customer = new Customer(c.id);
+                let customer = new Customer(c.customerId);
                 newOption = `<option>${customer.getCustomerID()}</option>`;
                 $(cmbCustomerId).append(newOption);
             }
+            loadCmbCustomerName(resp);
         },
         error: function (ob, textStatus, error) {
             console.log(ob);
@@ -159,10 +162,9 @@ function loadCmbCustomerId() {
     });
 }
 
-function loadCmbCustomerName() {
+function loadCmbCustomerName(resp) {
     clearCmbCustomerName();
-
-    $.ajax({
+    /*$.ajax({
         url: "http://localhost:8080/pos/customer?option=GET_ID_NAME",
         method: "GET",
         async: false,
@@ -175,14 +177,19 @@ function loadCmbCustomerName() {
         error: function (ob, textStatus, error) {
             console.log(ob);
         }
-    });
+    });*/
+    for (let c of resp.data) {
+        newOption = `<option>${c.customerName}</option>`;
+        $(cmbCustomerName).append(newOption);
+    }
 }
 
 function loadCmbItemCode() {
     clearCmbItemCode();
 
     $.ajax({
-        url: "http://localhost:8080/pos/item?option=GET_CODE_DESCRIP",
+        // url: "http://localhost:8080/pos/item?option=GET_CODE_DESCRIP",
+        url: "http://localhost:8080/springBackend/api/pos/item/code_description",
         method: "GET",
         async: false,
         success: function (resp) {
@@ -190,6 +197,7 @@ function loadCmbItemCode() {
                 newOption = `<option>${item.itemCode}</option>`;
                 $(cmbItemCode).append(newOption);
             }
+            loadCmbDescription(resp);
         },
         error: function (ob, textStatus, error) {
             console.log(ob);
@@ -197,10 +205,10 @@ function loadCmbItemCode() {
     });
 }
 
-function loadCmbDescription() {
+function loadCmbDescription(resp) {
     clearCmbDescription();
 
-    $.ajax({
+    /*$.ajax({
         url: "http://localhost:8080/pos/item?option=GET_CODE_DESCRIP",
         method: "GET",
         async: false,
@@ -213,8 +221,12 @@ function loadCmbDescription() {
         error: function (ob, textStatus, error) {
             console.log(ob);
         }
-    });
+    });*/
 
+    for (let item of resp.data) {
+        newOption = `<option>${item.description}</option>`;
+        $(cmbDescription).append(newOption);
+    }
 }
 
 /* ---------------------Load Customer Details-------------*/

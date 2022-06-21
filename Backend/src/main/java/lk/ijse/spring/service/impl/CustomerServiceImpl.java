@@ -74,6 +74,11 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    public List<CustomerDTO> getIdsAndNames() {
+        return mapper.map(repo.getCustomerIdAndCustomerName(), new TypeToken<List<CustomerDTO>>(){}.getType());
+    }
+
+    @Override
     public CustomerDTO saveCustomer(CustomerDTO dto) {
         if (!repo.existsById(dto.getCustomerId())) {
             return mapper.map(repo.save(mapper.map(dto, Customer.class)), CustomerDTO.class);

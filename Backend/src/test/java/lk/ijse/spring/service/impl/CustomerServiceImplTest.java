@@ -71,4 +71,12 @@ class CustomerServiceImplTest {
         String customerCount = customerService.getCustomerCount();
         System.out.println(customerCount);
     }
+
+    @Test
+    void getIdsAndNames() {
+        List<CustomerDTO> idsAndNames = customerService.getIdsAndNames();
+        idsAndNames.forEach(c->{
+            System.out.println(c.toString());
+        });
+    }
 }

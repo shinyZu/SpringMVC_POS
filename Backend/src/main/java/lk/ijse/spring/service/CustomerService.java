@@ -15,6 +15,8 @@ public interface CustomerService {
 
     String isDuplicateContact(String id, int contact);
 
+    List<CustomerDTO> getIdsAndNames();
+
     CustomerDTO saveCustomer(CustomerDTO dto);
 
     CustomerDTO updateCustomer(CustomerDTO dto);

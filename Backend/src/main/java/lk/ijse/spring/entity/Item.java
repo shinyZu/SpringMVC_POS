@@ -20,6 +20,11 @@ public class Item {
     private double unitPrice;
     private int qtyOnHand;
 
+    public Item(String itemCode, String description) {
+        this.itemCode = itemCode;
+        this.description = description;
+    }
+
     /*@OneToMany(mappedBy = "item")
     private List<OrderDetail> orderDetails = new ArrayList<>();*/
 }

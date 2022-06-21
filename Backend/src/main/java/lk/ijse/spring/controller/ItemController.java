@@ -38,6 +38,11 @@ public class ItemController {
         return new ResponseUtil(200, "Item Count", itemService.getItemCount());
     }
 
+    @GetMapping(path = "code_description",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil getCodesAndDescriptions(){
+        return new ResponseUtil(200,"All Codes & Descriptions", itemService.getCodesAndDescriptions());
+    }
+
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseUtil saveItem(@ModelAttribute ItemDTO dto) {

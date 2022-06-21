@@ -699,10 +699,10 @@ $("#nav-orders").click(function () {
     load_TblCustomerOrder();
 
     loadCmbCustomerId();
-    loadCmbCustomerName();
+    // loadCmbCustomerName();
 
     loadCmbItemCode();
-    loadCmbDescription();
+    // loadCmbDescription();
 
     select_OrderDetailRow();
 });

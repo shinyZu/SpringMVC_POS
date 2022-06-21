@@ -20,6 +20,11 @@ public class Customer {
     private String customerAddress;
     private int customerContact;
 
+    public Customer(String customerId, String customerName) {
+        this.customerId = customerId;
+        this.customerName = customerName;
+    }
+
     /*@OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Orders> orderList = new ArrayList<>();*/
 }

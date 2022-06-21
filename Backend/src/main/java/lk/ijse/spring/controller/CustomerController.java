@@ -41,6 +41,11 @@ public class CustomerController {
         return new ResponseUtil(200, customerService.isDuplicateContact(id,contact), null);
     }
 
+    @GetMapping(path = "id_name",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil getIdsAndNames(){
+        return new ResponseUtil(200,"All IDs & Names", customerService.getIdsAndNames());
+    }
+
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseUtil saveCustomer(@ModelAttribute CustomerDTO dto) {
