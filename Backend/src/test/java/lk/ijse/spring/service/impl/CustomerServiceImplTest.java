@@ -102,6 +102,6 @@ class CustomerServiceImplTest {
 
     @Test
     void deleteCustomer() {
-        customerService.deleteCustomer("C00-003");
+        customerService.deleteCustomer("C00-001");
     }
 }

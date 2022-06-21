@@ -953,7 +953,7 @@ function place_Order(orderId) {
     getAllItems();
 
     if (noOfRows === 0) {
-        alert("Empty Table..");
+        toastr.error("Empty Table..");
 
     } else {
         do {
@@ -971,7 +971,7 @@ function place_Order(orderId) {
 
             //--------------------------Update QtyOnHand---------------------------------------
 
-            let index = 0;
+            /*let index = 0;
             for (let i in allItems) {
                 if (allItems[i].itemCode === itemCode) {
                     qtyOnHand = allItems[i].qtyOnHand;
@@ -985,7 +985,7 @@ function place_Order(orderId) {
                     itemCode: itemCode,
                     qtyOnHand: newQtyOnHand
                 }
-            )
+            )*/
             rowNo++;
         } while (rowNo <= noOfRows);
 
@@ -1036,7 +1036,7 @@ function place_Order(orderId) {
 
                     // -Update QtyOnHand if Order Placed Successfully-
 
-                    console.log("before update qty");
+                    /*console.log("before update qty");
                     for (let i in array_UpdateQtyDetail) {
                         console.log(1);
                         for (let j of allItems) {
@@ -1053,7 +1053,7 @@ function place_Order(orderId) {
                                 updateItem(itemObj);
                             }
                         }
-                    }
+                    }*/
 
                 } else {
                     toastr.error(resp.message);

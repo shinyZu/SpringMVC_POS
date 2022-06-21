@@ -20,10 +20,11 @@ public class OrderDetail {
 
     @Id
     private String orderId;
+
     @Id
     private String itemCode;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "orderId", referencedColumnName = "orderId", insertable = false, updatable = false)
     private Orders orders;
 

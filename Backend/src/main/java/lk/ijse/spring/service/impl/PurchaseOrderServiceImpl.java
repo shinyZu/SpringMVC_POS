@@ -1,9 +1,13 @@
 package lk.ijse.spring.service.impl;
 
 import lk.ijse.spring.dto.CustomerDTO;
+import lk.ijse.spring.dto.OrderDetailDTO;
 import lk.ijse.spring.dto.OrdersDTO;
 import lk.ijse.spring.entity.Customer;
+import lk.ijse.spring.entity.Item;
+import lk.ijse.spring.entity.OrderDetail;
 import lk.ijse.spring.entity.Orders;
+import lk.ijse.spring.repo.ItemRepo;
 import lk.ijse.spring.repo.OrdersRepo;
 import lk.ijse.spring.service.PurchaseOrderService;
 import org.modelmapper.ModelMapper;
@@ -14,10 +18,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
 public class PurchaseOrderServiceImpl implements PurchaseOrderService {
+
+    @Autowired
+    ItemRepo itemRepo;
+
 
     @Autowired
     OrdersRepo repo;
@@ -47,6 +56,13 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
         if (!repo.existsById(dto.getOrderId())) {
             OrdersDTO ordersDTO = mapper.map(repo.save(mapper.map(dto, Orders.class)), OrdersDTO.class);
             System.out.println("after save-----------------"+ordersDTO.toString());
+
+            for (OrderDetail orderDetail : mapper.map(dto,Orders.class).getOrderDetails()) {
+                Item item = itemRepo.findById(orderDetail.getItemCode()).get();
+                item.setQtyOnHand(item.getQtyOnHand() - orderDetail.getOrderQty());
+                itemRepo.save(item);
+            }
+
             if (dto.getOrderDetails().size() < 1){
                 throw new RuntimeException("Empty Order...Try Again...");
             }
