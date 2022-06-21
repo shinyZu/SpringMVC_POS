@@ -9,5 +9,7 @@ import java.util.List;
 
 public interface ItemRepo extends JpaRepository<Item,String> {
     @Query(value = "select new Item(i.itemCode, i.description) from Item i")
-    List<Item> getItemCOdeAndDescription();
+    List<Item> getItemCodeAndDescription();
+
+    Item getItemByDescription(String description);
 }

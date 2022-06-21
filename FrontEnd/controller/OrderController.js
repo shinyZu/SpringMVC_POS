@@ -294,7 +294,8 @@ $("#cmbItemCode").click(function () {
     selectedOption = cmbItemCode.val();
     if (selectedOption != null) {
         $.ajax({
-            url: "http://localhost:8080/pos/item?option=SEARCH&itemCode=" + selectedOption + "&description=",
+            // url: "http://localhost:8080/pos/item?option=SEARCH&itemCode=" + selectedOption + "&description=",
+            url: itemAPIBaseUrl+"/"+selectedOption,
             method: "GET",
             success: function (resp) {
                 response = resp;
@@ -310,7 +311,8 @@ $("#cmbDescription").click(function () {
     selectedOption = cmbDescription.val();
     if (selectedOption != null) {
         $.ajax({
-            url: "http://localhost:8080/pos/item?option=SEARCH&itemCode=&description=" + selectedOption,
+            // url: "http://localhost:8080/pos/item?option=SEARCH&itemCode=&description=" + selectedOption,
+            url: itemAPIBaseUrl+"?description="+selectedOption,
             method: "GET",
             success: function (resp) {
                 response = resp;

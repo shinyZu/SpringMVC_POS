@@ -41,6 +41,11 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
+    public ItemDTO searchItemByDescription(String description) {
+        return mapper.map(repo.getItemByDescription(description),ItemDTO.class);
+    }
+
+    @Override
     public String getLastItemCode() {
         long count = repo.count();
         System.out.println("count---------- "+count);
@@ -58,7 +63,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public List<ItemDTO> getCodesAndDescriptions() {
-        return mapper.map(repo.getItemCOdeAndDescription(), new TypeToken<List<ItemDTO>>(){}.getType());
+        return mapper.map(repo.getItemCodeAndDescription(), new TypeToken<List<ItemDTO>>(){}.getType());
     }
 
     @Override

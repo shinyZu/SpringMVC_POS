@@ -10,6 +10,8 @@ public interface ItemService {
 
     ItemDTO searchItem(String itemCode);
 
+    ItemDTO searchItemByDescription(String description);
+
     String getLastItemCode();
 
     String getItemCount();

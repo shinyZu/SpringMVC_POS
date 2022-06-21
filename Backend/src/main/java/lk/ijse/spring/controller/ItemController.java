@@ -28,6 +28,11 @@ public class ItemController {
         return new ResponseUtil(200, "Search Done", itemService.searchItem(itemCode));
     }
 
+    @GetMapping(params = {"description"}, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil searchItemByDescription(@RequestParam String description) {
+        return new ResponseUtil(200, "Search Done By Description", itemService.searchItemByDescription(description));
+    }
+
     @GetMapping(path = "lastCode", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseUtil getLastItemCode() {
         return new ResponseUtil(200, "Last Code", itemService.getLastItemCode());

@@ -284,7 +284,7 @@ $("#btnEditItem").click(function (e) {
                 itemCode: txtItemCode.val(),
                 description: txtDescription.val(),
                 unitPrice: txtUnitPrice.val(),
-                qty: txtQty.val()
+                qtyOnHand: txtQty.val()
             }
             updateItem(itemObj);
             // toastr.success(response.message);
