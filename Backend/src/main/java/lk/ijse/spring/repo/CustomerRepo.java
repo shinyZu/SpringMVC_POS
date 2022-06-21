@@ -12,8 +12,10 @@ public interface CustomerRepo extends JpaRepository<Customer,String> {
     @Query(value = "select u from Customer u")
     List<Customer> getAllCustomersWithJPQL();
 
-//    @Query(value = "select c.customerId, c.customerName from Customer c")
+    // @Query(value = "select c.customerId, c.customerName from Customer c")
     @Query(value = "select new Customer(c.customerId, c.customerName) from Customer c")
     List<Customer> getCustomerIdAndCustomerName();
+
+    Customer getCustomerByCustomerName(String name);
 
 }

@@ -144,7 +144,7 @@ function loadCmbCustomerId() {
 
     $.ajax({
         // url: "http://localhost:8080/pos/customer?option=GET_ID_NAME",
-        url: "http://localhost:8080/springBackend/api/pos/customer/id_name",
+        url: customerAPIBaseUrl+"/id_name",
         method: "GET",
         async: false,
         success: function (resp) {
@@ -189,7 +189,7 @@ function loadCmbItemCode() {
 
     $.ajax({
         // url: "http://localhost:8080/pos/item?option=GET_CODE_DESCRIP",
-        url: "http://localhost:8080/springBackend/api/pos/item/code_description",
+        url: itemAPIBaseUrl+"/code_description",
         method: "GET",
         async: false,
         success: function (resp) {
@@ -242,11 +242,12 @@ $("#cmbCustomerId").click(function () {
     selectedOption = cmbCustomerId.val();
     if (selectedOption != null) {
         $.ajax({
-            url: "http://localhost:8080/pos/customer?option=SEARCH&customerID=" + selectedOption + "&customerName=",
+            // url: "http://localhost:8080/pos/customer?option=SEARCH&customerID=" + selectedOption + "&customerName=",
+            url: customerAPIBaseUrl+"/"+selectedOption,
             method: "GET",
             success: function (resp) {
                 response = resp;
-                let customer = new Customer(resp.data.id, resp.data.name, resp.data.address, resp.data.contact);
+                let customer = new Customer(resp.data.customerId, resp.data.customerName, resp.data.customerAddress, resp.data.customerContact);
                 loadCustomerDetails(customer);
             }
         });
@@ -257,11 +258,12 @@ $("#cmbCustomerName").click(function () {
     selectedOption = cmbCustomerName.val();
     if (selectedOption != null) {
         $.ajax({
-            url: "http://localhost:8080/pos/customer?option=SEARCH&customerID=&customerName=" + selectedOption,
+            // url: "http://localhost:8080/pos/customer?option=SEARCH&customerID=&customerName=" + selectedOption,
+            url: customerAPIBaseUrl+"?name="+selectedOption,
             method: "GET",
             success: function (resp) {
                 response = resp;
-                let customer = new Customer(resp.data.id, resp.data.name, resp.data.address, resp.data.contact);
+                let customer = new Customer(resp.data.customerId, resp.data.customerName, resp.data.customerAddress, resp.data.customerContact);
                 loadCustomerDetails(customer);
             }
         });

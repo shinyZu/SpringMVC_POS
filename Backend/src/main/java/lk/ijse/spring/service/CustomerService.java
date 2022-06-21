@@ -9,6 +9,8 @@ public interface CustomerService {
 
     CustomerDTO searchCustomer(String id);
 
+    CustomerDTO searchCustomerByName(String name);
+
     String getLastCustomerID();
 
     String getCustomerCount();
@@ -22,4 +24,5 @@ public interface CustomerService {
     CustomerDTO updateCustomer(CustomerDTO dto);
 
     void deleteCustomer(String id);
+
 }

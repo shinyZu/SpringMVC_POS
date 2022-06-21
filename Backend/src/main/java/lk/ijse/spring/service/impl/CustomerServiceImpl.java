@@ -40,6 +40,11 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    public CustomerDTO searchCustomerByName(String name) {
+        return mapper.map(repo.getCustomerByCustomerName(name),CustomerDTO.class);
+    }
+
+    @Override
     public String getLastCustomerID() {
         long count = repo.count();
         System.out.println("count---------- "+count);

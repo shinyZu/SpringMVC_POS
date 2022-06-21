@@ -26,6 +26,12 @@ public class CustomerController {
         return new ResponseUtil(200, "Search Done", customerService.searchCustomer(id));
     }
 
+    @GetMapping(params = {"name"}, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil searchCustomerByName(@RequestParam String name) {
+        return new ResponseUtil(200, "Search Done By Name", customerService.searchCustomerByName(name));
+    }
+
+
     @GetMapping(path = "lastID", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseUtil getLastCustomerID() {
         return new ResponseUtil(200, "Last ID", customerService.getLastCustomerID());
