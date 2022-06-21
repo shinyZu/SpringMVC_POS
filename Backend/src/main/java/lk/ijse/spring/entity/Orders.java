@@ -28,7 +28,7 @@ public class Orders {
     private int discount;
 
 //    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @ManyToOne(cascade = {CascadeType.REFRESH,CascadeType.DETACH})
+    @ManyToOne(cascade = {CascadeType.REFRESH,CascadeType.DETACH}/*, fetch = FetchType.EAGER*/)
 //    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "customerID", referencedColumnName = "customerId")
     private Customer customer;

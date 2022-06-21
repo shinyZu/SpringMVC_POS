@@ -59,11 +59,11 @@ class CustomerServiceImplTest {
         System.out.println(dto);
     }
 */
-    @Test
-    void deleteCustomer() {
-        customerService.deleteCustomer("C00-010");
-        getAllCustomers();
-    }
+//    @Test
+//    void deleteCustomer() {
+//        customerService.deleteCustomer("C00-010");
+//        getAllCustomers();
+//    }
 
 
     @Test
@@ -98,5 +98,10 @@ class CustomerServiceImplTest {
         customerService.updateCustomer(c1);
         customerService.updateCustomer(c2);
         customerService.updateCustomer(c3);
+    }
+
+    @Test
+    void deleteCustomer() {
+        customerService.deleteCustomer("C00-003");
     }
 }

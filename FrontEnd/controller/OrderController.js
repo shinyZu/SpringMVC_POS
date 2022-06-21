@@ -1023,7 +1023,16 @@ function place_Order(orderId) {
             success: function (resp) {
                 response = resp
                 if (resp.code === 201) {
-                    toastr.success(resp.message);
+                    // toastr.success(resp.message);
+
+                    swal({
+                        title: 'Order Placed Successfully!',
+                        text: "Order  " + orderId + "  Placed.",
+                        icon: 'success',
+                        buttons: ["OK"],
+                        timer: 2000,
+                        closeModal: true,
+                    });
 
                     // -Update QtyOnHand if Order Placed Successfully-
 
@@ -1052,7 +1061,7 @@ function place_Order(orderId) {
             },
             error: function (ob, textStatus, error) {
                 console.log(ob);
-                alert(textStatus);
+                toastr.error(responseJSON.message);
             }
         });
     }

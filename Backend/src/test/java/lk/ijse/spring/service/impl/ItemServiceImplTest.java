@@ -52,4 +52,9 @@ class ItemServiceImplTest {
         itemService.saveItem(item3);
         itemService.saveItem(item4);
     }
+
+    @Test
+    void deleteItem() {
+        itemService.deleteItem("I00-004");
+    }
 }

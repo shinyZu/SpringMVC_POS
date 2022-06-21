@@ -3,7 +3,9 @@ package lk.ijse.spring.service.impl;
 import lk.ijse.spring.dto.CustomerDTO;
 import lk.ijse.spring.entity.Customer;
 import lk.ijse.spring.entity.Item;
+import lk.ijse.spring.entity.Orders;
 import lk.ijse.spring.repo.CustomerRepo;
+import lk.ijse.spring.repo.OrdersRepo;
 import lk.ijse.spring.service.CustomerService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -20,6 +22,9 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Autowired
     private CustomerRepo repo;
+
+    @Autowired
+    private OrdersRepo ordersRepo;
 
     @Autowired
     private ModelMapper mapper;
@@ -102,7 +107,14 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public void deleteCustomer(String id) {
         if (repo.existsById(id)) {
-            repo.deleteById(id);
+            List<Orders> orders = ordersRepo.getOrdersByCustomer(new Customer(id));
+//            System.out.println(orders);
+            if (orders.isEmpty()) {
+                repo.deleteById(id);
+            } else {
+                throw new RuntimeException("Customer "+id+" have currently Placed Orders...Hence cannot Delete this Customer");
+            }
+
         } else {
             throw new RuntimeException("No Such Customer..Please check the Customer ID...");
         }
