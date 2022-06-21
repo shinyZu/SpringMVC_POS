@@ -79,4 +79,16 @@ class CustomerServiceImplTest {
             System.out.println(c.toString());
         });
     }
+
+    @Test
+    void saveCustomer() {
+        CustomerDTO c1 = new CustomerDTO("C001","Dasun","Galle",0716455451);
+        CustomerDTO c2 = new CustomerDTO("C002","Kamal","Panadura",0716455452);
+        CustomerDTO c3 = new CustomerDTO("C003","Ramal","Kaluthara",0716455453);
+        CustomerDTO c4 = new CustomerDTO("C004","Oshan","Colombo",0716455454);
+        customerService.saveCustomer(c1);
+        customerService.saveCustomer(c2);
+        customerService.saveCustomer(c3);
+        customerService.saveCustomer(c4);
+    }
 }

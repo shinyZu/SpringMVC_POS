@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -19,8 +20,9 @@ public class Orders {
     @Id
     private String orderId;
 
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.DATE) // without --> 2022-06-21 00:00:00.0
     private Date orderDate;
+//    private LocalDate orderDate;
 
     private double orderCost;
     private int discount;

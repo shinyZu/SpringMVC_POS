@@ -47,7 +47,6 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public String getLastCustomerID() {
         long count = repo.count();
-        System.out.println("count---------- "+count);
         if (count == 0) { // first item to be added
             return "C00-000";
         }
@@ -59,7 +58,6 @@ public class CustomerServiceImpl implements CustomerService {
     public String getCustomerCount() {
         long count = repo.count();
         return String.valueOf(count);
-
     }
 
     @Override

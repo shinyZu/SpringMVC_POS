@@ -67,7 +67,8 @@ function getItemCount() {
 
 function getOrderCount() {
     $.ajax({
-        url: "http://localhost:8080/pos/orders?option=GET_COUNT",
+        // url: "http://localhost:8080/pos/orders?option=GET_COUNT",
+        url: ordersAPIBaseUrl+"/getCount",
         method: "GET",
         async: false,
         success: function (resp) {
@@ -156,16 +157,17 @@ function generateNextItemCode() {
 
 function generateNextOrderID() {
     $.ajax({
-        url: "http://localhost:8080/pos/orders?option=LAST_ID",
+        // url: "http://localhost:8080/pos/orders?option=LAST_ID",
+        url: ordersAPIBaseUrl+"/lastID",
         method: "GET",
         async: false,
         success: function (resp) {
-            let lastOrderId = resp.data;
-
-            if (lastOrderId === "null") {
+            response = resp;
+            if (resp.data == null) {
                 orderId.val("OID-001");
                 return;
             }
+            let lastOrderId = resp.data;
             let nextOrderId = ++lastOrderId.split("-")[1];
 
             if (nextOrderId <= 9) {

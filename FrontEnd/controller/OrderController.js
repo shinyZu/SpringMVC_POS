@@ -61,7 +61,8 @@ $("#purchaseForm p.errorText").hide();
 
 function getAllCustomers() {
     $.ajax({
-        url: "http://localhost:8080/pos/customer?option=GETALL",
+        // url: "http://localhost:8080/pos/customer?option=GETALL",
+        url:customerAPIBaseUrl,
         method: "GET",
         async: false,
         success: function (resp) {
@@ -76,7 +77,8 @@ function getAllCustomers() {
 
 function getAllItems() {
     $.ajax({
-        url: "http://localhost:8080/pos/item?option=GETALL",
+        // url: "http://localhost:8080/pos/item?option=GETALL",
+        url: itemAPIBaseUrl,
         method: "GET",
         async: false,
         success: function (resp) {
@@ -91,7 +93,8 @@ function getAllItems() {
 
 function getAllOrders() {
     $.ajax({
-        url: "http://localhost:8080/pos/orders?option=GETALL",
+        // url: "http://localhost:8080/pos/orders?option=GETALL",
+        url:ordersAPIBaseUrl,
         method: "GET",
         async: false,
         success: function (res) {
@@ -328,7 +331,7 @@ $("#cmbDescription").click(function () {
 
 function clearItemFields() {
     loadCmbItemCode();
-    loadCmbDescription();
+    // loadCmbDescription();
     txtUnitPrice2.val("");
     txtQtyOnHand.val("");
     txtOrderQty.val("").css('border', '1px solid rgb(206, 212, 218)');
@@ -339,7 +342,7 @@ function clearItemFields() {
 
 function clearCustomerFields() {
     loadCmbCustomerId();
-    loadCmbCustomerName();
+    // loadCmbCustomerName();
     txtord_address.val("");
     txtord_contact.val("");
 }
@@ -993,24 +996,25 @@ function place_Order(orderId) {
 
         let purchaseDetails = {
             orderId: orderId,
-            date: date.val(),
-            subTotal: subTotal.toFixed(2),
+            orderDate: date.val(),
+            orderCost: subTotal.toFixed(2),
             discount: discount,
             customerId: customerId,
-            orderDetail: array_OrderDetail
+            orderDetails: array_OrderDetail
         }
 
         console.log(purchaseDetails);
 
         $.ajax({
-            url: "http://localhost:8080/pos/orders",
+            // url: "http://localhost:8080/pos/orders",
+            url: ordersAPIBaseUrl,
             method: "POST",
             contentType: "application/json",
             data: JSON.stringify(purchaseDetails),
             async: false,
             success: function (resp) {
                 response = resp
-                if (resp.status === 200) {
+                if (resp.code === 201) {
                     toastr.success(resp.message);
 
                     // -Update QtyOnHand if Order Placed Successfully-
@@ -1025,7 +1029,7 @@ function place_Order(orderId) {
                                     itemCode: j.itemCode,
                                     description: j.description,
                                     unitPrice: j.unitPrice,
-                                    qty: array_UpdateQtyDetail[i].qtyOnHand.toString()
+                                    qtyOnHand: array_UpdateQtyDetail[i].qtyOnHand.toString()
                                 }
                                 console.log(3);
                                 console.log(itemObj)
@@ -1066,7 +1070,8 @@ function load_TblCustomerOrder() {
     getAllCustomers();
 
     $.ajax({
-        url: "http://localhost:8080/pos/orders?option=GETALL",
+        // url: "http://localhost:8080/pos/orders?option=GETALL",
+        url: ordersAPIBaseUrl,
         method: "GET",
         async: false,
         success: function (res) {
