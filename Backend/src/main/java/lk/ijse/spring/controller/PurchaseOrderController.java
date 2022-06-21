@@ -37,4 +37,10 @@ public class PurchaseOrderController {
     public ResponseUtil purchaseOrder(@RequestBody OrdersDTO dto){
         return new ResponseUtil(201, "Order Placed Successfully...!", purchaseOrderService.purchaseOrder(dto));
     }
+
+    @DeleteMapping(params = {"orderId"}, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil deleteOrder(@RequestParam("orderId") String orderId) {
+        purchaseOrderService.deleteOrder(orderId);
+        return new ResponseUtil(200, "Order Deleted Successfully..!", null);
+    }
 }

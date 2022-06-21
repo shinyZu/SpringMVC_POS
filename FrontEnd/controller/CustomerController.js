@@ -147,6 +147,7 @@ function deleteCustomer(row) {
                 },
                 error: function (ob, status, t) {
                     console.log(ob);
+                    toastr.error(ob.responseJSON.message);
                 }
             });
         }

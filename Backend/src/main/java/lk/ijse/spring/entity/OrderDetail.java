@@ -23,7 +23,7 @@ public class OrderDetail {
     @Id
     private String itemCode;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne
     @JoinColumn(name = "orderId", referencedColumnName = "orderId", insertable = false, updatable = false)
     private Orders orders;
 

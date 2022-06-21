@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @WebAppConfiguration
 @ContextConfiguration(classes = {WebAppConfig.class})
 @ExtendWith({SpringExtension.class})
-@Transactional
+//@Transactional
 class PurchaseOrderServiceImplTest {
 
     @Autowired
@@ -44,8 +44,8 @@ class PurchaseOrderServiceImplTest {
     @Test
     void purchaseOrder() {
         List<OrderDetailDTO> detailDTOS = new ArrayList<>();
-        detailDTOS.add(new OrderDetailDTO("OID-002","I00-001",3));
-        detailDTOS.add(new OrderDetailDTO("OID-002","I00-002",4));
+        detailDTOS.add(new OrderDetailDTO("OID-008","I00-001",3));
+        detailDTOS.add(new OrderDetailDTO("OID-008","I00-002",4));
 
         // OrderDate -> LocalDate
         /*OrdersDTO ordersDTO = new OrdersDTO("OID-001", LocalDate.of(2022, 6,21), 400.00, 12,
@@ -54,11 +54,17 @@ class PurchaseOrderServiceImplTest {
         );*/
 
         // OrderDate -> java.util.Date
-        OrdersDTO ordersDTO = new OrdersDTO("OID-002", java.sql.Date.valueOf("2022-06-22"), 400.00, 12,
-                new CustomerDTO("C00-002"),
+        OrdersDTO ordersDTO = new OrdersDTO("OID-008", java.sql.Date.valueOf("2022-06-22"), 400.00, 12,
+                new CustomerDTO("C00-003"),
+//                "C00-003",
                 detailDTOS
         );
         boolean b = purchaseOrderService.purchaseOrder(ordersDTO);
         System.out.println(b);
+    }
+
+    @Test
+    void deleteOrder() {
+        purchaseOrderService.deleteOrder("OID-003");
     }
 }

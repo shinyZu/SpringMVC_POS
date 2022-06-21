@@ -53,12 +53,12 @@ class CustomerServiceImplTest {
         System.out.println("status : "+status);
     }
 
-    @Test
+    /*@Test
     void updateCustomer() {
         CustomerDTO dto = customerService.updateCustomer(new CustomerDTO("C00-009", "Supuni", "Badulla", 716455459));
         System.out.println(dto);
     }
-
+*/
     @Test
     void deleteCustomer() {
         customerService.deleteCustomer("C00-010");
@@ -82,13 +82,21 @@ class CustomerServiceImplTest {
 
     @Test
     void saveCustomer() {
-        CustomerDTO c1 = new CustomerDTO("C001","Dasun","Galle",0716455451);
-        CustomerDTO c2 = new CustomerDTO("C002","Kamal","Panadura",0716455452);
-        CustomerDTO c3 = new CustomerDTO("C003","Ramal","Kaluthara",0716455453);
-        CustomerDTO c4 = new CustomerDTO("C004","Oshan","Colombo",0716455454);
+        CustomerDTO c1 = new CustomerDTO("C00-001","Dasun","Galle",716455451);
+        CustomerDTO c2 = new CustomerDTO("C00-002","Kamal","Panadura",716455452);
+        CustomerDTO c3 = new CustomerDTO("C00-003","Ramal","Kaluthara",716455453);
         customerService.saveCustomer(c1);
         customerService.saveCustomer(c2);
         customerService.saveCustomer(c3);
-        customerService.saveCustomer(c4);
+    }
+
+    @Test
+    void updateCustomer() {
+        CustomerDTO c1 = new CustomerDTO("C00-001","Dasun","Galle",716455451);
+        CustomerDTO c2 = new CustomerDTO("C00-002","Kamal","Panadura",716455452);
+        CustomerDTO c3 = new CustomerDTO("C00-003","Ramal","Kaluthara",716455453);
+        customerService.updateCustomer(c1);
+        customerService.updateCustomer(c2);
+        customerService.updateCustomer(c3);
     }
 }

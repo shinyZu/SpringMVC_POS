@@ -61,4 +61,13 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     public String getOrderCount() {
         return String.valueOf(repo.count());
     }
+
+    @Override
+    public void deleteOrder(String orderId) {
+        if (repo.existsById(orderId)) {
+            repo.deleteById(orderId);
+        } else {
+            throw new RuntimeException("No Such Order..Please check the Order ID...");
+        }
+    }
 }

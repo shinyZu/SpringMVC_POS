@@ -698,14 +698,13 @@ $("#nav-orders").click(function () {
     $("#nav-orders a").addClass("active");
 
     generateNextOrderID();
-    load_TblCustomerOrder();
-
     loadCmbCustomerId();
     // loadCmbCustomerName();
 
     loadCmbItemCode();
     // loadCmbDescription();
 
+    load_TblCustomerOrder();
     select_OrderDetailRow();
 });
 

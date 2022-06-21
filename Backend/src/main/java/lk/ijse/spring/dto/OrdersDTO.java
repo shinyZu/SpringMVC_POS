@@ -24,6 +24,6 @@ public class OrdersDTO {
     private double orderCost;
     private int discount;
 
-    private CustomerDTO customerDTO;
+    private CustomerDTO customer;
     private List<OrderDetailDTO> orderDetails;
 }

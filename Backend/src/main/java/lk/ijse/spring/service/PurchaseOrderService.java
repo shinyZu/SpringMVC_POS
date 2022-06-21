@@ -14,4 +14,6 @@ public interface PurchaseOrderService {
     boolean purchaseOrder(OrdersDTO dto);
 
     String getOrderCount();
+
+    void deleteOrder(String orderId);
 }

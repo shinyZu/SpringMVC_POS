@@ -20,6 +20,10 @@ public class Customer {
     private String customerAddress;
     private int customerContact;
 
+    public Customer(String customerId) {
+        this.customerId = customerId;
+    }
+
     public Customer(String customerId, String customerName) {
         this.customerId = customerId;
         this.customerName = customerName;

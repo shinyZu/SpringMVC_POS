@@ -965,7 +965,7 @@ function place_Order(orderId) {
                 {
                     orderId: orderId,
                     itemCode: itemCode,
-                    qty: orderQty
+                    orderQty: orderQty
                 }
             );
 
@@ -999,7 +999,15 @@ function place_Order(orderId) {
             orderDate: date.val(),
             orderCost: subTotal.toFixed(2),
             discount: discount,
-            customerId: customerId,
+            // customer: customerId,
+            // customer: new Customer(cmbCustomerId.val(),cmbCustomerName.val(),txtord_address.val(),txtord_contact.val()),
+            customer:
+                {
+                    customerId:cmbCustomerId.val(),
+                    customerName: cmbCustomerName.val(),
+                    customerAddress: txtord_address.val(),
+                    customerContact: txtord_contact.val()
+                },
             orderDetails: array_OrderDetail
         }
 
@@ -1068,6 +1076,8 @@ function reset_Table() {
 function load_TblCustomerOrder() {
     $("#tblOrders-body").empty();
     getAllCustomers();
+    getAllOrders();
+    // getAllOrderDetails();
 
     $.ajax({
         // url: "http://localhost:8080/pos/orders?option=GETALL",
@@ -1075,23 +1085,36 @@ function load_TblCustomerOrder() {
         method: "GET",
         async: false,
         success: function (res) {
+            response = res;
             for (let o of res.data) {
-                let order = new Orders(o.orderId, o.orderDate, o.orderCost, o.discount, o.customerId);
+                // let order = new Orders(o.orderId, o.orderDate, o.orderCost, o.discount, o.customerId);
+                let order = new Orders(o.orderId, o.orderDate, o.orderCost, o.discount, o.customer.customerId);
+                let c = o.customer;
+                let customer = new Customer(c.customerId, c.customerName, c.customerAddress, c.customerContact);
+                // for (let c of allCustomers) {
+                //     let customer = new Customer(c.customerId, c.customerName, c.customerAddress, c.customerContact);
+                //
+                //     if (order.getCustomerID() === customer.getCustomerID()) {
+                //         newRow = `<tr>
+                //              <td>${order.getOrderId()}</td>
+                //              <td>${order.getCustomerID()}</td>
+                //              <td>${customer.getCustomerName()}</td>
+                //              <td>0${customer.getCustomerContact()}</td>
+                //              <td>${parseFloat(order.getOrderCost()).toFixed(2)}</td>
+                //              <td>${order.getOrderDate()}</td>
+                //          </tr>`;
+                //     }
+                // }
 
-                for (let c of allCustomers) {
-                    let customer = new Customer(c.id, c.name, c.address, c.contact);
+                newRow = `<tr>
+                     <td>${order.getOrderId()}</td>
+                     <td>${order.getCustomerID()}</td>
+                     <td>${customer.getCustomerName()}</td>
+                     <td>0${customer.getCustomerContact()}</td>
+                     <td>${parseFloat(order.getOrderCost()).toFixed(2)}</td>
+                     <td>${order.getOrderDate()}</td>
+                 </tr>`;
 
-                    if (order.getCustomerID() === customer.getCustomerID()) {
-                        newRow = `<tr>
-                             <td>${order.getOrderId()}</td>
-                             <td>${order.getCustomerID()}</td>
-                             <td>${customer.getCustomerName()}</td>
-                             <td>0${customer.getCustomerContact()}</td>
-                             <td>${parseFloat(order.getOrderCost()).toFixed(2)}</td>
-                             <td>${order.getOrderDate()}</td>
-                         </tr>`;
-                    }
-                }
                 $("#tblOrders-body").append(newRow);
             }
         },
@@ -1186,17 +1209,19 @@ function select_OrderDetailRow() {
         let orderDetail_arr = [];
 
         getAllOrders();
-        getAllCustomers();
+        // getAllCustomers();
         getAllItems();
-        getAllOrderDetails();
+        // getAllOrderDetails();
 
         for (let obj of allOrders) {
             if (obj.orderId === orderID) {
                 order_obj = obj;
             }
         }
+        cust_obj = order_obj.customer;
+        orderDetail_arr = order_obj.orderDetails;
 
-        for (let obj of allCustomers) {
+        /*for (let obj of allCustomers) {
             if (order_obj.customerId === obj.id) {
                 cust_obj = obj;
             }
@@ -1207,15 +1232,20 @@ function select_OrderDetailRow() {
             if (orderID === allOrderDetails[i].orderId) {
                 orderDetail_arr[index++] = allOrderDetails[i];
             }
-        }
+        }*/
 
         orderId.val(orderID);
         date.val(order_obj.orderDate);
 
-        cmbCustomerId.val(cust_obj.id);
+        /*cmbCustomerId.val(cust_obj.id);
         cmbCustomerName.val(cust_obj.name);
         txtord_address.val(cust_obj.address)
-        txtord_contact.val("0" + cust_obj.contact);
+        txtord_contact.val("0" + cust_obj.contact);*/
+
+        cmbCustomerId.val(cust_obj.customerId);
+        cmbCustomerName.val(cust_obj.customerName);
+        txtord_address.val(cust_obj.customerAddress)
+        txtord_contact.val("0" + cust_obj.customerContact);
 
         for (let i = 0; i < orderDetail_arr.length; i++) {
             for (let obj of allItems) {
@@ -1286,11 +1316,12 @@ function deleteOrder(orderID) {
     }).then(result => {
         if (result.isConfirmed) {
             $.ajax({
-                url: "http://localhost:8080/pos/orders?orderId=" + orderID,
+                // url: "http://localhost:8080/pos/orders?orderId=" + orderID,
+                url: ordersAPIBaseUrl+"?orderId=" + orderID,
                 method: "DELETE",
                 async: false,
                 success: function (resp) {
-                    if (resp.status === 200) {
+                    if (resp.code === 200) {
                         swal({
                             title: 'Deleted!',
                             text: "Order  " + orderID + "  Deleted.",
@@ -1301,12 +1332,16 @@ function deleteOrder(orderID) {
                         });
                         getOrderCount();
 
-                    } else if (resp.status === 400) {
+                    } else if (resp.code === 400) {
                         toastr.error(resp.message);
 
                     } else {
                         toastr.error(resp.message);
                     }
+                },
+                error: function (ob, textStatus, error) {
+                    // console.log(ob);
+                    toastr.error(ob.responseJSON.message);
                 }
             });
             load_TblCustomerOrder();

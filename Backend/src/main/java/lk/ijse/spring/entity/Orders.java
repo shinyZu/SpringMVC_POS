@@ -20,14 +20,16 @@ public class Orders {
     @Id
     private String orderId;
 
-    @Temporal(TemporalType.DATE) // without --> 2022-06-21 00:00:00.0
+//    @Temporal(TemporalType.DATE) // without --> 2022-06-21 00:00:00.0
     private Date orderDate;
 //    private LocalDate orderDate;
 
     private double orderCost;
     private int discount;
 
-    @ManyToOne/*(cascade = {CascadeType.REFRESH,CascadeType.DETACH})*/
+//    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {CascadeType.REFRESH,CascadeType.DETACH})
+//    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "customerID", referencedColumnName = "customerId")
     private Customer customer;
 
