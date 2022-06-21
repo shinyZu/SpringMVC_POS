@@ -2,6 +2,7 @@ package lk.ijse.spring.service.impl;
 
 import lk.ijse.spring.dto.CustomerDTO;
 import lk.ijse.spring.entity.Customer;
+import lk.ijse.spring.entity.Item;
 import lk.ijse.spring.repo.CustomerRepo;
 import lk.ijse.spring.service.CustomerService;
 import org.modelmapper.ModelMapper;
@@ -40,6 +41,11 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public String getLastCustomerID() {
+        long count = repo.count();
+        System.out.println("count---------- "+count);
+        if (count == 0) { // first item to be added
+            return "C00-000";
+        }
         List<Customer> customers = repo.findAll(Sort.by(Sort.Direction.DESC, "customerId"));
         return customers.get(0).getCustomerId();
     }

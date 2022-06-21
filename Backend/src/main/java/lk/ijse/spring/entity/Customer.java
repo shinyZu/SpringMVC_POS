@@ -5,15 +5,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
-@Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @ToString
+@Entity
 public class Customer {
     @Id
     private String customerId;
@@ -21,6 +20,6 @@ public class Customer {
     private String customerAddress;
     private int customerContact;
 
-    @OneToMany(mappedBy = "customer", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<Orders> orderList = new ArrayList<>();
+    /*@OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Orders> orderList = new ArrayList<>();*/
 }

@@ -45,7 +45,7 @@ public class ItemServiceImpl implements ItemService {
         long count = repo.count();
         System.out.println("count---------- "+count);
         if (count == 0) { // first item to be added
-            return "C00-000";
+            return "I00-000";
         }
         List<Item> items = repo.findAll(Sort.by(Sort.Direction.DESC, "itemCode"));
         return items.get(0).getItemCode();

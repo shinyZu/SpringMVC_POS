@@ -164,7 +164,7 @@ function loadAllItems() {
                 newRow = `<tr>
                     <td>${item.getItemCode()}</td>
                     <td>${item.getDescription()}</td>
-                    <td>${item.getUnitPrice()}</td>
+                    <td>${item.getUnitPrice().toFixed(2)}</td>
                     <td>${item.getQtyOnHand()}</td>
                 </tr>`;
 

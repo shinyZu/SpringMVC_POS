@@ -87,12 +87,12 @@ function generateNextCustomerID() {
         method: "GET",
         async: false,
         success: function (resp) {
-            let lastCustId = resp.data;
-
-            if (lastCustId === "null") {
+            response = resp;
+            if (resp.data == null) {
                 txtCustomerId.val("C00-001");
                 return;
             }
+            let lastCustId = resp.data;
             let nextCustId = ++lastCustId.split("-")[1];
 
             if (nextCustId <= 9) {

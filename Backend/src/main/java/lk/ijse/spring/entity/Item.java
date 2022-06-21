@@ -7,15 +7,12 @@ import lombok.ToString;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import java.util.ArrayList;
-import java.util.List;
 
-@Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @ToString
+@Entity
 public class Item {
     @Id
     private String itemCode;
@@ -23,6 +20,6 @@ public class Item {
     private double unitPrice;
     private int qtyOnHand;
 
-    @OneToMany(mappedBy = "item")
-    private List<OrderDetail> orderDetails = new ArrayList<>();
+    /*@OneToMany(mappedBy = "item")
+    private List<OrderDetail> orderDetails = new ArrayList<>();*/
 }
