@@ -39,12 +39,12 @@ public class JPAConfig {
         return bean;
     }
 
-    /*@Bean
+    @Bean
     public DataSource dataSource() throws NamingException {
         return (DataSource) new JndiTemplate().lookup("java:comp/env/jdbc/pool");
-    }*/
+    }
 
-    @Bean
+    /*@Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setUrl(env.getRequiredProperty("my.app.url"));
@@ -52,7 +52,7 @@ public class JPAConfig {
         dataSource.setPassword(env.getRequiredProperty("my.app.password"));
         dataSource.setDriverClassName(env.getRequiredProperty("my.app.driverclassname"));
         return dataSource;
-    }
+    }*/
 
     @Bean
     public JpaVendorAdapter jpaVendorAdapter(){
