@@ -12,6 +12,7 @@
 - Spring Data JPA
 - Apache Tomcat Web Container
 - Maven
+- Hibernate
 - AJAX
 - MySQL
 - HTML
@@ -24,8 +25,8 @@
 
 <br>
 
-<img src = "FrontEnd/assets/images/pos/loginPage.png" alt = "sample"> <br><br>
-<img src = "FrontEnd/assets/images/pos/loginFail.png" alt = "sample"> <br><br>
-<img src = "FrontEnd/assets/images/pos/customerPage.png" alt = "sample"> <br><br>
-<img src = "FrontEnd/assets/images/pos/itemPage.png" alt = "sample"> <br><br>
-<img src = "FrontEnd/assets/images/pos/invoicePage.png" alt = "sample">
+<img src = "Frontend/assets/images/pos/loginPage.png" alt = "sample"> <br><br>
+<img src = "Frontend/assets/images/pos/loginFail.png" alt = "sample"> <br><br>
+<img src = "Frontend/assets/images/pos/customerPage.png" alt = "sample"> <br><br>
+<img src = "Frontend/assets/images/pos/itemPage.png" alt = "sample"> <br><br>
+<img src = "Frontend/assets/images/pos/invoicePage.png" alt = "sample">
