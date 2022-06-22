@@ -8,8 +8,10 @@
 
 ## Used :
 
-- Spring
+- Spring Web MVC
+- Spring Data JPA
 - Apache Tomcat Web Container
+- Maven
 - AJAX
 - MySQL
 - HTML
