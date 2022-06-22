@@ -42,8 +42,8 @@ public class JPAConfig {
     /*@Bean
     public DataSource dataSource() throws NamingException {
         return (DataSource) new JndiTemplate().lookup("java:comp/env/jdbc/pool");
-    }
-*/
+    }*/
+
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();

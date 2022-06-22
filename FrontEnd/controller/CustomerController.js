@@ -95,7 +95,7 @@ function updateCustomer() {
     });
 }
 
-function deleteCustomer(row) {
+/*function deleteCustomer(row) {
     customerId = $(row).children(':nth-child(1)').text();
 
     swal({
@@ -112,7 +112,6 @@ function deleteCustomer(row) {
             email = localStorage.getItem("email");
             pwd = localStorage.getItem("pwd");
             $.ajax({
-                // url: "http://localhost:8080/pos/customer?customerID=" + customerId + "&email=" + email + "&pwd=" + pwd,
                 url: customerAPIBaseUrl+"?id=" + customerId,
                 method: "DELETE",
                 success: function (resp) {
@@ -152,6 +151,90 @@ function deleteCustomer(row) {
             });
         }
     })
+}*/
+
+function sendDeleteRequest(customerId) {
+    $.ajax({
+        url: customerAPIBaseUrl + "?id=" + customerId,
+        method: "DELETE",
+        async: false,
+        success: function (resp) {
+            if (resp.code === 200) {
+                swal({
+                    title: 'Deleted!',
+                    text: "Customer  " + customerId + "  Deleted.",
+                    icon: 'success',
+                    buttons: ["OK"],
+                    timer: 2000,
+                    closeModal: true,
+                });
+
+                loadAllCustomers();
+                getCustomerCount();
+                reset_CustomerForm();
+
+                select_OrderDetailRow();
+                clearInvoiceFields();
+                clearInvoiceTable();
+
+                clearCustomerFields();
+            }
+        },
+        error: function (ob, status, t) {
+            console.log(ob);
+            toastr.error(ob.responseJSON.message);
+        }
+    });
+}
+
+function deleteCustomer(row) {
+    customerId = $(row).children(':nth-child(1)').text();
+
+    $.ajax({
+        url: customerAPIBaseUrl + "/get_orders/" + customerId,
+        method: "GET",
+        async: false,
+        success: function (resp) {
+            if (resp.code === 200 && resp.data.length !== 0) { // if Customer has placed at least one order
+                swal({
+                    title: resp.message,
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    buttons: ["Cancel", "Delete"],
+                    dangerMode: true,
+                    closeModal: true,
+                    closeOnClickOutside: false,
+
+                }).then(result => {
+                    if (result) {
+                        sendDeleteRequest(customerId);
+                    }
+                })
+
+            } else {
+                swal({
+                    title: 'Are you sure you want to delete this Customer..?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    buttons: ["Cancel", "Delete"],
+                    dangerMode: true,
+                    closeModal: true,
+                    closeOnClickOutside: false,
+
+                }).then(result => {
+                    if (result) {
+                        email = localStorage.getItem("email");
+                        pwd = localStorage.getItem("pwd");
+                        sendDeleteRequest(customerId);
+                    }
+                })
+            }
+        },
+        error: function (ob, status, t) {
+            console.log(ob);
+            toastr.error(ob.responseJSON.message);
+        }
+    });
 }
 
 function loadAllCustomers() {
@@ -189,7 +272,7 @@ function loadAllCustomers() {
 function searchCustomer(searchValue) {
     $.ajax({
         // url: "http://localhost:8080/pos/customer?option=SEARCH&customerID=" + searchValue + "&customerName=",
-        url: customerAPIBaseUrl+"/"+searchValue,
+        url: customerAPIBaseUrl + "/" + searchValue,
         method: "GET",
         success: function (resp) {
             response = resp;
@@ -463,7 +546,7 @@ function validate_CustomerContact(input, txtField) {
         customerId = txtCustomerId.val();
         $.ajax({
             // url: "http://localhost:8080/pos/customer?option=CHECK_FOR_DUPLICATE&customerId=" + customerId + "&input=" + input,
-            url: customerAPIBaseUrl+"/"+customerId+"/"+input,
+            url: customerAPIBaseUrl + "/" + customerId + "/" + input,
             method: "GET",
             success: function (resp) {
                 response = resp;

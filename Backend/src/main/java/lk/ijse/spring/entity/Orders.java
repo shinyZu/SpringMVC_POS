@@ -25,11 +25,14 @@ public class Orders {
 //    private LocalDate orderDate;
 
     private double orderCost;
+
+    @Column(columnDefinition = "double default '0.0'")
     private int discount;
 
 //    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @ManyToOne(cascade = {CascadeType.REFRESH,CascadeType.DETACH}/*, fetch = FetchType.EAGER*/)
+//    @ManyToOne(cascade = {CascadeType.REFRESH,CascadeType.DETACH}/*, fetch = FetchType.EAGER*/)
 //    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
     @JoinColumn(name = "customerID", referencedColumnName = "customerId")
     private Customer customer;
 

@@ -31,7 +31,6 @@ public class CustomerController {
         return new ResponseUtil(200, "Search Done By Name", customerService.searchCustomerByName(name));
     }
 
-
     @GetMapping(path = "lastID", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseUtil getLastCustomerID() {
         return new ResponseUtil(200, "Last ID", customerService.getLastCustomerID());
@@ -50,6 +49,14 @@ public class CustomerController {
     @GetMapping(path = "id_name",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseUtil getIdsAndNames(){
         return new ResponseUtil(200,"All IDs & Names", customerService.getIdsAndNames());
+    }
+
+    @GetMapping(path = "get_orders/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil getCustomerOrders(@PathVariable("id") String id) {
+        if (!customerService.getOrdersByCustomer(id).isEmpty()){
+            return new ResponseUtil(200, "All Orders placed by "+id+" will be Lost...", customerService.getOrdersByCustomer(id));
+        }
+        return new ResponseUtil(200, "No Orders Yet", customerService.getOrdersByCustomer(id)); // safe to delete
     }
 
     @ResponseStatus(HttpStatus.CREATED)

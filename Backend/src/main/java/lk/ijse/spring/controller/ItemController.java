@@ -1,8 +1,6 @@
 package lk.ijse.spring.controller;
 
-import lk.ijse.spring.dto.CustomerDTO;
 import lk.ijse.spring.dto.ItemDTO;
-import lk.ijse.spring.repo.ItemRepo;
 import lk.ijse.spring.service.ItemService;
 import lk.ijse.spring.util.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,9 +41,9 @@ public class ItemController {
         return new ResponseUtil(200, "Item Count", itemService.getItemCount());
     }
 
-    @GetMapping(path = "code_description",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseUtil getCodesAndDescriptions(){
-        return new ResponseUtil(200,"All Codes & Descriptions", itemService.getCodesAndDescriptions());
+    @GetMapping(path = "code_description", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil getCodesAndDescriptions() {
+        return new ResponseUtil(200, "All Codes & Descriptions", itemService.getCodesAndDescriptions());
     }
 
     @ResponseStatus(HttpStatus.CREATED)

@@ -1,7 +1,6 @@
 package lk.ijse.spring.controller;
 
 import lk.ijse.spring.dto.OrdersDTO;
-import lk.ijse.spring.service.CustomerService;
 import lk.ijse.spring.service.PurchaseOrderService;
 import lk.ijse.spring.util.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +33,7 @@ public class PurchaseOrderController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseUtil purchaseOrder(@RequestBody OrdersDTO dto){
+    public ResponseUtil purchaseOrder(@RequestBody OrdersDTO dto) {
         return new ResponseUtil(201, "Order Placed Successfully...!", purchaseOrderService.purchaseOrder(dto));
     }
 

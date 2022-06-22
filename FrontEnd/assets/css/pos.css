@@ -194,7 +194,8 @@ p.errorText {
 #orders-main {
   background-image: url("../images/pos/background.jpg");
   background-size: cover;
-  height: fit-content;
+  /*height: fit-content;*/
+  height: 100vh;
   margin-top: 75px;
   display: none;
 }

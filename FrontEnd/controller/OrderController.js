@@ -953,7 +953,7 @@ function place_Order(orderId) {
     getAllItems();
 
     if (noOfRows === 0) {
-        toastr.error("Empty Table..");
+        toastr.error("Your Cart is Empty..!!!");
 
     } else {
         do {
@@ -1061,7 +1061,7 @@ function place_Order(orderId) {
             },
             error: function (ob, textStatus, error) {
                 console.log(ob);
-                toastr.error(responseJSON.message);
+                toastr.error(ob.responseJSON.message);
             }
         });
     }

@@ -1,6 +1,8 @@
 package lk.ijse.spring.service;
 
 import lk.ijse.spring.dto.CustomerDTO;
+import lk.ijse.spring.dto.OrdersDTO;
+import lk.ijse.spring.entity.Orders;
 
 import java.util.List;
 
@@ -25,4 +27,5 @@ public interface CustomerService {
 
     void deleteCustomer(String id);
 
+    List<OrdersDTO> getOrdersByCustomer(String id);
 }

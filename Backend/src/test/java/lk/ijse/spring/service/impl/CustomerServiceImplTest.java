@@ -2,7 +2,9 @@ package lk.ijse.spring.service.impl;
 
 import lk.ijse.spring.config.WebAppConfig;
 import lk.ijse.spring.dto.CustomerDTO;
+import lk.ijse.spring.dto.OrdersDTO;
 import lk.ijse.spring.entity.Customer;
+import lk.ijse.spring.entity.Orders;
 import lk.ijse.spring.repo.CustomerRepo;
 import lk.ijse.spring.service.CustomerService;
 import org.junit.jupiter.api.Test;
@@ -82,9 +84,9 @@ class CustomerServiceImplTest {
 
     @Test
     void saveCustomer() {
-        CustomerDTO c1 = new CustomerDTO("C00-001","Dasun","Galle",716455451);
-        CustomerDTO c2 = new CustomerDTO("C00-002","Kamal","Panadura",716455452);
-        CustomerDTO c3 = new CustomerDTO("C00-003","Ramal","Kaluthara",716455453);
+        CustomerDTO c1 = new CustomerDTO("C00-001","Kamal","Galle",716455451);
+        CustomerDTO c2 = new CustomerDTO("C00-002","Nimal","Panadura",716455452);
+        CustomerDTO c3 = new CustomerDTO("C00-003","Bimal","Matara",716455453);
         customerService.saveCustomer(c1);
         customerService.saveCustomer(c2);
         customerService.saveCustomer(c3);
@@ -102,6 +104,14 @@ class CustomerServiceImplTest {
 
     @Test
     void deleteCustomer() {
-        customerService.deleteCustomer("C00-001");
+        customerService.deleteCustomer("C00-003");
+    }
+
+    @Test
+    void getOrdersByCustomer() {
+        List<OrdersDTO> orders = customerService.getOrdersByCustomer("C00-003");
+        for (OrdersDTO order : orders) {
+            System.out.println(order.getOrderId());
+        }
     }
 }

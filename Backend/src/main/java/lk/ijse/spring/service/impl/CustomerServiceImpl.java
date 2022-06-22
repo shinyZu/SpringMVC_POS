@@ -1,9 +1,8 @@
 package lk.ijse.spring.service.impl;
 
 import lk.ijse.spring.dto.CustomerDTO;
+import lk.ijse.spring.dto.OrdersDTO;
 import lk.ijse.spring.entity.Customer;
-import lk.ijse.spring.entity.Item;
-import lk.ijse.spring.entity.Orders;
 import lk.ijse.spring.repo.CustomerRepo;
 import lk.ijse.spring.repo.OrdersRepo;
 import lk.ijse.spring.service.CustomerService;
@@ -46,7 +45,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public CustomerDTO searchCustomerByName(String name) {
-        return mapper.map(repo.getCustomerByCustomerName(name),CustomerDTO.class);
+        return mapper.map(repo.getCustomerByCustomerName(name), CustomerDTO.class);
     }
 
     @Override
@@ -67,7 +66,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public String isDuplicateContact(String id, int contact) {
-        System.out.println("contact : "+contact);
+        System.out.println("contact : " + contact);
         List<Customer> all = repo.findAll();
         for (Customer customer : all) {
             if (customer.getCustomerContact() == contact) {
@@ -83,7 +82,8 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public List<CustomerDTO> getIdsAndNames() {
-        return mapper.map(repo.getCustomerIdAndCustomerName(), new TypeToken<List<CustomerDTO>>(){}.getType());
+        return mapper.map(repo.getCustomerIdAndCustomerName(), new TypeToken<List<CustomerDTO>>() {
+        }.getType());
     }
 
     @Override
@@ -107,14 +107,26 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public void deleteCustomer(String id) {
         if (repo.existsById(id)) {
-            List<Orders> orders = ordersRepo.getOrdersByCustomer(new Customer(id));
+//            List<Orders> orders = ordersRepo.getOrdersByCustomer(new Customer(id));
 //            System.out.println(orders);
-            if (orders.isEmpty()) {
+            repo.deleteById(id);
+
+            /*if (orders.isEmpty()) {
                 repo.deleteById(id);
             } else {
-                throw new RuntimeException("Customer "+id+" have currently Placed Orders...Hence cannot Delete this Customer");
-            }
+                throw new RuntimeException("All Orders placed by "+id+" will be Lost...");
+            }*/
 
+        } else {
+            throw new RuntimeException("No Such Customer..Please check the Customer ID...");
+        }
+    }
+
+    @Override
+    public List<OrdersDTO> getOrdersByCustomer(String id) {
+        if (repo.existsById(id)) {
+            return mapper.map(ordersRepo.getOrdersByCustomer(new Customer(id)), new TypeToken<List<OrdersDTO>>() {
+            }.getType());
         } else {
             throw new RuntimeException("No Such Customer..Please check the Customer ID...");
         }

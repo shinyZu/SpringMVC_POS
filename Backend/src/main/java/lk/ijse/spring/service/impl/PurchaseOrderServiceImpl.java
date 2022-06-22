@@ -63,14 +63,13 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
                 itemRepo.save(item);
             }
 
-            if (dto.getOrderDetails().size() < 1){
+           /* if (dto.getOrderDetails().size() < 1){
                 throw new RuntimeException("Empty Order...Try Again...");
-            }
+            }*/
             return true;
         } else {
             throw new RuntimeException("Error Occurred while Purchasing Order...Try Again...");
         }
-//        return false;
     }
 
     @Override
