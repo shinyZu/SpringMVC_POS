@@ -6,7 +6,7 @@
 - configured JNDI Resource for a Tomcat Connection Pool
 - applied Layered Architecture 
 
-## Used :
+## Technology Stack :
 
 - Spring Web MVC
 - Spring Data JPA
